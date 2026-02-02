@@ -13,7 +13,6 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link href="style_refined.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
@@ -84,15 +83,10 @@
         class="border-b border-slate-200 dark:border-border-dark bg-white dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <a href="index.html" class="flex items-center gap-3 group">
-                    <!-- Light Mode Logo -->
-                    <img src="assets/Logo.png" class="h-8 w-auto dark:hidden" alt="SekolahDesain.id Logo">
-                    <!-- Dark Mode Logo -->
-                    <img src="assets/logo-dark-mode.png" class="h-8 w-auto hidden dark:block"
-                        alt="SekolahDesain.id Logo">
-                    <span class="text-xl font-bold tracking-tight leading-none flex items-center pt-4">
-                        Freelancer<span class="text-primary text-xl">Kit</span>
-                    </span>
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="assets/LogoW.png" alt="SekolahDesain.id Logo" style="height: 32px; width: auto;">
+                    <span class="text-xl font-bold tracking-tight">Freelancer<span
+                            class="text-primary text-xl">Kit</span></span>
                 </a>
             </div>
             <div class="hidden md:flex items-center gap-8">
@@ -110,55 +104,55 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 pt-2 pb-2">
-        <div class="flex flex-col lg:flex-row gap-6">
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <div class="flex flex-col lg:flex-row gap-12">
             <!-- Left Column: Form & Trust Badges -->
-            <div class="flex-1 space-y-2">
+            <div class="flex-1 space-y-10">
                 <section>
-                    <h2 class="text-3xl font-black mb-1 leading-tight text-white">Selesaikan Pesanan</h2>
-                    <p class="text-slate-500 dark:text-slate-400">Lengkapi data Anda untuk mendapatkan akses produk
-                        digital secara instan.</p>
+                    <h2 class="text-4xl font-black mb-2 leading-tight">Selesaikan Pesanan</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-lg">Lengkapi data Anda untuk mendapatkan akses
+                        produk digital secara instan.</p>
                 </section>
 
                 <!-- Registration Form -->
                 <form id="checkoutForm"
-                    class="space-y-5 bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
+                    class="space-y-6 bg-white dark:bg-card-dark p-8 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="flex flex-col gap-2">
-                            <label class="text-xs font-bold uppercase tracking-wider text-slate-400" for="name">Nama
+                            <label class="text-sm font-semibold uppercase tracking-wider text-slate-400" for="name">Nama
                                 Lengkap</label>
                             <input id="name" name="name"
-                                class="form-input w-full rounded-lg bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark focus:border-primary focus:ring-0 h-12 px-4 text-sm"
+                                class="form-input w-full rounded-lg bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark focus:border-primary focus:ring-0 h-14 px-4 text-base"
                                 placeholder="Masukkan nama lengkap" type="text" required minlength="3" />
                             <span class="form-error" id="name-error"></span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <label class="text-xs font-bold uppercase tracking-wider text-slate-400"
+                            <label class="text-sm font-semibold uppercase tracking-wider text-slate-400"
                                 for="email">Email</label>
                             <input id="email" name="email"
-                                class="form-input w-full rounded-lg bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark focus:border-primary focus:ring-0 h-12 px-4 text-sm"
+                                class="form-input w-full rounded-lg bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark focus:border-primary focus:ring-0 h-14 px-4 text-base"
                                 placeholder="email@contoh.com" type="email" required />
                             <span class="form-error" id="email-error"></span>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="flex flex-col gap-2">
-                            <label class="text-xs font-bold uppercase tracking-wider text-slate-400"
+                            <label class="text-sm font-semibold uppercase tracking-wider text-slate-400"
                                 for="whatsapp">Nomor WhatsApp</label>
                             <div class="relative">
                                 <span
-                                    class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-sm">+62</span>
+                                    class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">+62</span>
                                 <input id="whatsapp" name="whatsapp"
-                                    class="form-input w-full rounded-lg bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark focus:border-primary focus:ring-0 h-12 pl-12 pr-4 text-sm"
+                                    class="form-input w-full rounded-lg bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark focus:border-primary focus:ring-0 h-14 pl-14 pr-4 text-base"
                                     placeholder="812 3456 7890" type="tel" required />
                             </div>
                             <span class="form-error" id="whatsapp-error"></span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <label class="text-xs font-bold uppercase tracking-wider text-slate-400" for="referral">Tahu
-                                kami dari mana?</label>
+                            <label class="text-sm font-semibold uppercase tracking-wider text-slate-400"
+                                for="referral">Tahu kami dari mana?</label>
                             <select id="referral" name="referral"
-                                class="form-select w-full rounded-lg bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark focus:border-primary focus:ring-0 h-12 px-4 text-sm appearance-none">
+                                class="form-select w-full rounded-lg bg-slate-50 dark:bg-background-dark border-slate-200 dark:border-border-dark focus:border-primary focus:ring-0 h-14 px-4 text-base appearance-none">
                                 <option value="" disabled selected>Pilih sumber (opsional)</option>
                                 <option value="Instagram">Instagram</option>
                                 <option value="Twitter (X)">Twitter (X)</option>
@@ -169,9 +163,9 @@
                         </div>
                     </div>
 
-                    <div class="pt-2">
+                    <div class="pt-4">
                         <button type="submit" id="submitBtn"
-                            class="w-full bg-primary hover:bg-primary-dark text-white py-4 rounded-xl text-base font-black tracking-wide transition-all shadow-xl shadow-primary/30 flex items-center justify-center gap-2">
+                            class="w-full bg-primary hover:bg-primary-dark text-white py-5 rounded-xl text-lg font-black tracking-wide transition-all shadow-xl shadow-primary/30 flex items-center justify-center gap-2">
                             <span class="btn-text">LANJUTKAN KE WHATSAPP</span>
                             <span class="material-symbols-outlined btn-icon">arrow_forward</span>
                             <span class="btn-spinner hidden">Memproses...</span>
@@ -184,9 +178,16 @@
                     <div class="space-y-4">
                         <h3 class="text-sm font-bold uppercase tracking-widest text-slate-500">Metode Pembayaran
                             Tersedia</h3>
-                        <div class="flex flex-wrap gap-8 items-center opacity-100 transition-all">
-                            <img alt="BCA" class="h-24 w-auto" src="assets/logo-bca.png" />
-                            <img alt="OCBC" class="h-28 w-auto" src="assets/logo-ocbc.png" />
+                        <div class="flex flex-wrap gap-6 items-center opacity-100 transition-all">
+                            <img alt="QRIS" class="h-10 dark:invert"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA41HfdbDiq8QZss-YBVaE7688lQ8Gqc5KV5zenM4Vv1jAKhs2rC8Hbyh34T22kHOHjFA7l73BMxBi2P-pstpSB-BFYh9Stg8mia9b56KaIFp9NaA4EFk3LoLChSxC1JiBF8epCNOgjNVMkIV5ovEzzKpm-dzTdPzPl73DCe-zuRwZEg009KsZbs4r-zcqSb6AHQ_--8VlUL4RO9hArBKxoaEALUVXkjdyqRbtK0GTfL4kne6SrCgwwui0dOwO0jH7GYz86lFRdXJdf" />
+                            <div class="h-8 w-px bg-slate-200 dark:bg-border-dark"></div>
+                            <img alt="BCA" class="h-8"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4bQIqvpwo4gvRjkArLbVmJAfE93dmBDFqi5xiYOZfjqdh-iyhY8mzbKZhlav7F3Vbx7zKJKnk1m3F_bbMWU3U9KvWyzW4yQLPwQ2CKoruLLmTnClAqTiPLdH3SplhAgY0nSx0C3794W_MepLAFkXxOtacBKX5iXg6xBxFMN76NIzTGPJZuEqnTtmuH2K2w7USygxbufN0fB-i9M-AF6RUGun9IBK-g_nKrHdrTBVtkm-WsiEAueGmFycddaPd7fSS86PfATm6h3SI" />
+                            <img alt="Mandiri" class="h-7"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0uiJN2fiKNRbD7IykCyUEy_IDyM2yQoNaBYf0fJmyNinIGg62TQ65e_D6FwPAfr-Z6-eSqmeO4pdd-OXzx6DAghcawTQ0bJKGfMSW2adRcQ9CzBEc0uhkT2JYh7GScfdjA9WHOB9ixAzbDQ_c-oHOwzc6G94Qckt-gX-t4rbDbaZI_PvuIgl-EGSicXL6vS2k6zkZymxczj8ZIDYE1comQu2g_h9jHFR2cC2B5khUN53hw-vhPBdcuoY8y53kohdOMGzjGdWnwNhi" />
+                            <img alt="BNI" class="h-7"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgjNRwqMOoO0sVNsSLJq4CcKMt-0NTxTzkJANMO-KxQCWATRChnwCUVFf7UrxYFPSR_FiMKRaIXcDiPrF77bGTNwgFuE9yQORNiGYCqdpGrmKIrTnm2pqTYBwsABMpIdBzaLSp6IgOLKP8rWiL9hBxzpMecKBnNFWOeBsxCL6Q4KRbwg2YxrRts_aniZg8UFbPkA6dtu0hcyNW__7FJDBJ1Xwao_F616fbJj5t1_vgmHybVVsMobnTn9HEiBUEaO827mxjLkzah3Qr" />
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -209,28 +210,27 @@
             </div>
 
             <!-- Right Column: Sticky Summary Card -->
-            <div class="lg:w-[380px]">
-                <div class="sticky top-28">
+            <div class="lg:w-[400px]">
+                <div class="sticky top-32">
                     <div
                         class="bg-white dark:bg-card-dark rounded-2xl border-2 border-primary glow-blue overflow-hidden flex flex-col">
                         <!-- Card Header -->
                         <div class="bg-primary p-6 flex items-center gap-4">
                             <div
-                                class="size-16 bg-white/20 rounded-xl backdrop-blur-md flex items-center justify-center border border-white/30 overflow-hidden">
-                                <img id="product-logo-img" src="assets/product-kit-logo.png"
-                                    class="w-full h-full object-cover" alt="Product Logo">
+                                class="size-16 bg-white/20 rounded-xl backdrop-blur-md flex items-center justify-center border border-white/30">
+                                <span class="material-symbols-outlined text-white text-4xl">gavel</span>
                             </div>
                             <div class="text-white">
                                 <p class="text-xs font-bold uppercase tracking-widest opacity-80">Produk Digital</p>
-                                <h3 id="product-title" class="text-xl font-bold">Protection Kit v2.0</h3>
+                                <h3 class="text-xl font-bold">Protection Kit v2.0</h3>
                             </div>
                         </div>
                         <!-- Card Content -->
-                        <div class="p-6 space-y-6">
+                        <div class="p-8 space-y-8">
                             <div>
                                 <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Termasuk
                                     dalam Kit:</p>
-                                <ul id="product-features" class="space-y-4">
+                                <ul class="space-y-4">
                                     <li class="flex items-start gap-3">
                                         <span
                                             class="material-symbols-outlined text-green-500 text-xl">check_circle</span>
@@ -257,10 +257,8 @@
                             <div class="flex flex-col gap-1">
                                 <p class="text-slate-500 text-sm">Total Investasi</p>
                                 <div class="flex items-baseline gap-2">
-                                    <span id="product-price" class="text-4xl font-black tracking-tighter">Rp
-                                        99.000</span>
-                                    <span id="product-strike-price" class="text-slate-500 text-sm line-through">Rp
-                                        499.000</span>
+                                    <span class="text-4xl font-black tracking-tighter">Rp 99.000</span>
+                                    <span class="text-slate-500 text-sm line-through">Rp 499.000</span>
                                 </div>
                                 <p class="text-xs text-primary font-bold mt-1">Sekali Bayar • Akses Selamanya</p>
                             </div>
@@ -279,15 +277,10 @@
         class="max-w-7xl mx-auto px-6 py-12 border-t border-slate-200 dark:border-border-dark mt-20 text-center md:text-left">
         <div class="flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="flex items-center gap-3 grayscale opacity-60">
-                <!-- Light Mode Logo -->
-                <img src="assets/Logo.png" class="dark:hidden" alt="SekolahDesain.id Logo"
-                    style="height: 24px; width: auto;">
-                <!-- Dark Mode Logo -->
-                <img src="assets/logo-dark-mode.png" class="hidden dark:block" alt="SekolahDesain.id Logo"
-                    style="height: 24px; width: auto;">
-                <span class="font-bold text-sm pt-3">Freelancer Protection Kit © 2025</span>
+                <img src="assets/LogoW.png" alt="SekolahDesain.id Logo" style="height: 24px; width: auto;">
+                <span class="font-bold text-sm">Freelancer Protection Kit © 2025</span>
             </div>
-            <div class="flex gap-8 text-sm font-medium text-slate-500 pt-3">
+            <div class="flex gap-8 text-sm font-medium text-slate-500">
                 <a class="hover:text-primary transition-colors" href="#">Kebijakan Privasi</a>
                 <a class="hover:text-primary transition-colors" href="#">Syarat & Ketentuan</a>
             </div>

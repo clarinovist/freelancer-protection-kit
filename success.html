@@ -71,12 +71,8 @@
             class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-6 md:px-40 py-4 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
             <div class="flex items-center gap-3">
                 <a href="index.html" class="flex items-center gap-3">
-                    <img src="assets/Logo.png" class="h-8 w-auto dark:hidden" alt="SekolahDesain.id Logo">
-                    <img src="assets/logo-dark-mode.png" class="h-8 w-auto hidden dark:block"
-                        alt="SekolahDesain.id Logo">
-                    <span class="text-xl font-bold tracking-tight leading-none flex items-center pt-4 text-white">
-                        Freelancer<span class="text-primary text-xl">Kit</span>
-                    </span>
+                    <img src="assets/LogoW.png" alt="SekolahDesain.id Logo" style="height: 32px; width: auto;">
+                    <h2 class="text-white text-lg font-extrabold tracking-tight">Freelancer Protection Kit</h2>
                 </a>
             </div>
             <button
@@ -158,9 +154,9 @@
                                     Rekening</p>
                                 <div class="flex items-center gap-2 mt-2">
                                     <p class="text-white text-2xl font-black tracking-tight font-display">Bank BCA
-                                        3948000999</p>
+                                        1234567890</p>
                                 </div>
-                                <p class="text-[#8db5ce] text-base font-medium">a.n. PT Solusi Desain Bangsa</p>
+                                <p class="text-[#8db5ce] text-base font-medium">a.n. SekolahDesain.id</p>
                             </div>
                             <button id="copyBtn"
                                 class="flex items-center justify-center gap-2 rounded-lg h-10 px-6 bg-white/10 text-white hover:bg-white/20 transition-colors w-fit border border-white/10 group">
@@ -169,9 +165,10 @@
                                 <span class="text-sm font-bold font-display">Salin No. Rekening</span>
                             </button>
                         </div>
-                        <div class="hidden md:block w-48 h-auto opacity-100 bg-white rounded-xl p-4 shadow-lg">
-                            <!-- Using local asset for BCA logo, blue color preserved, background added for contrast -->
-                            <img alt="BCA Logo" class="w-full h-full object-contain" src="assets/logo-bca.png" />
+                        <div class="hidden md:block w-32 h-32 opacity-80">
+                            <!-- Using a simpler placeholder-style text for BCA logo if external image not available, but user provided URL -->
+                            <img alt="BCA Logo" class="w-full h-full object-contain invert"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpn4iPUmyb3Uk8MKkwHcg4k1JmgDSlRL2ZgCid5Av3M_LNffnzfC4kjhdNPuYfsmjS549ePfGlLnh9qcOEsKjCZ1WrP07k8pzFMQw0i4nxbMlucmQQlDoZUKuo0_GoghpVFfftAlr7kp-ywCFV8Ba6GlYJuMpFgBkKGdoVl7ctDEpdVwTDAXxtNLaF-tP5T-sHcerShGVzkEPyPNbHrBjl1iyuzzXVsxWWcbCemATmdKkGbsBrOoCeQXYUOKrYLHI9xFnj0Adg9vLj" />
                         </div>
                     </div>
                 </section>
@@ -255,7 +252,7 @@ Mohon informasi untuk proses pembayaran. Terima kasih!`;
         const copyBtn = document.getElementById('copyBtn');
         if (copyBtn) {
             copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText('3948000999').then(() => {
+                navigator.clipboard.writeText('1234567890').then(() => {
                     const originalText = copyBtn.querySelector('span:last-child').textContent;
                     copyBtn.querySelector('span:last-child').textContent = 'Tersalin!';
                     setTimeout(() => {
