@@ -2,7 +2,7 @@
 /* Focus: Clarity, Speed, Readability, High Conversion */
 
 :root {
-    /* Brand Colors - SekolahDesain Official 2025 */
+    /* Brand Colors - SekolahDesain Official 2026 */
     --color-primary: #009DFF;
     /* Friendship Blue */
     /* Darker Blue for WCAG AA Contrast (3.1:1 on white for large text) */
@@ -53,7 +53,7 @@
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    /* Supergraphic Shapes - SekolahDesain 2025 */
+    /* Supergraphic Shapes - SekolahDesain 2026 */
     --sg-o: 120px;
     --sg-c-width: 200px;
     --sg-c-height: 100px;
