@@ -98,7 +98,7 @@ Mohon informasi untuk proses pembayaran. Terima kasih!`;
             const encodedMessage = encodeURIComponent(message);
 
             // Replace with your Google Sheets Script URL
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbw9cfBjLpKTqDrSkD4hFMeZO80t3nrQE4AxIgXJC7n42pufE0DCyLWkjdxujIdb2Msoqg/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxEmN7t8Yw62uPywMe9fZpErtlja2mmbiIHfksTj3zoMw5UdkTiWdlPIebpQzFMCOBVRw/exec';
 
             // Replace with your WhatsApp number
             const waNumber = '6285155421080'; // NOMOR WHATSAPP ANDA
