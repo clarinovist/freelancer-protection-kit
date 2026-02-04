@@ -243,7 +243,7 @@ function clearError(fieldId) {
 const PRODUCTS = {
     'kit': {
         title: 'Protection Kit v2.0',
-        logo: 'assets/freelancer_kit_2d_logo.png',
+        logo: 'assets/products/freelancer_kit_2d_logo.png',
         price: 'Rp 99.000',
         strike: 'Rp 499.000',
         features: [
@@ -255,7 +255,7 @@ const PRODUCTS = {
     },
     'cohort': {
         title: 'Cohort Batch 1 (Premium)',
-        logo: 'assets/cohort_premium_2d_logo.png',
+        logo: 'assets/products/cohort_premium_2d_logo.png',
         price: 'Rp 499.000',
         strike: 'Rp 1.500.000',
         features: [
