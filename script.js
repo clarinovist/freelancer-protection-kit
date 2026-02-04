@@ -116,87 +116,7 @@ Mohon informasi untuk proses pembayaran. Terima kasih!`;
                 formData.append('email', email);
                 formData.append('whatsapp', whatsapp);
                 formData.append('referral', referral);
-                // Lead Magnet Modal Functions
-                const leadModal = document.getElementById('leadModal');
-
-                function openLeadModal() {
-                    leadModal.classList.remove('hidden');
-                    // Track Modal Open if needed, or just PageView is enough
-                }
-
-                function closeLeadModal() {
-                    leadModal.classList.add('hidden');
-                }
-
-                // Close modal when clicking outside
-                window.onclick = function (event) {
-                    if (event.target == leadModal) {
-                        closeLeadModal();
-                    }
-                }
-
-                // Handle Lead Form Submission
-                const leadForm = document.getElementById('leadForm');
-                if (leadForm) {
-                    leadForm.addEventListener('submit', function (e) {
-                        e.preventDefault();
-
-                        const name = document.getElementById('leadName').value;
-                        const whatsapp = document.getElementById('leadWhatsapp').value;
-                        const submitBtn = leadForm.querySelector('button[type="submit"]');
-                        const originalBtnText = submitBtn.innerText;
-
-                        // Show loading state
-                        submitBtn.disabled = true;
-                        submitBtn.innerText = 'Mengirim...';
-
-                        // 1. Fire Facebook Pixel Lead Event
-                        if (typeof fbq === 'function') {
-                            fbq('track', 'Lead', {
-                                content_name: 'Freelancer Kit Free Sample',
-                                currency: 'IDR',
-                                value: 0
-                            });
-                        }
-
-                        // 2. Send data to Google Sheets (using the same Web App URL)
-                        // Add specific flag for 'lead_magnet' type
-                        const formData = new URLSearchParams();
-                        formData.append('nama', name);
-                        formData.append('whatsapp', whatsapp);
-                        formData.append('email', '-'); // Optional for lead magnet
-                        formData.append('referral', 'Lead Magnet');
-                        formData.append('status', 'Free Sample'); // Mark as free sample
-
-                        fetch(scriptURL, {
-                            method: 'POST',
-                            body: formData,
-                            mode: 'no-cors' // Important for Google Sheets
-                        })
-                            .then(response => {
-                                // 3. Success Feedback & Download
-                                submitBtn.innerText = 'Berhasil! Mengunduh...';
-
-                                // Redirect to PDF / Auto-download (Using a dummy link for now, user to replace)
-                                // setTimeout(() => {
-                                //     window.location.href = 'https://link-to-your-pdf-sample.com';
-                                // }, 1000);
-
-                                alert('Terima kasih! File sampel akan terkirim ke WhatsApp Anda (Simulasi). Silakan cek folder download Anda jika tersedia link langsung.');
-
-                                closeLeadModal();
-                                leadForm.reset();
-                                submitBtn.disabled = false;
-                                submitBtn.innerText = originalBtnText;
-                            })
-                            .catch(error => {
-                                console.error('Error!', error.message);
-                                alert('Maaf, ada gangguan. Coba lagi nanti.');
-                                submitBtn.disabled = false;
-                                submitBtn.innerText = originalBtnText;
-                            });
-                    });
-                }
+                // (Lead Magnet logic moved to global initLeadMagnet function)
                 fetch(scriptURL, { method: 'POST', body: formData })
                     .then(response => console.log('Lead saved successfully'))
                     .catch(error => console.error('Error saving lead:', error))
@@ -387,9 +307,86 @@ document.addEventListener('DOMContentLoaded', function () {
     initButtonEffects();
     initStickyHeader();
     initDynamicCheckout(); // <-- initialize dynamic checkout
+    initLeadMagnet(); // <-- initialize lead magnet
 
     console.log('Freelancer Protection Kit - Landing Page Loaded');
 });
+
+// ===== Lead Magnet (Free Sample) =====
+function initLeadMagnet() {
+    const leadModal = document.getElementById('leadModal');
+    const leadForm = document.getElementById('leadForm');
+
+    // Make functions global so proper onclick works
+    window.openLeadModal = function () {
+        if (leadModal) leadModal.classList.remove('hidden');
+    };
+
+    window.closeLeadModal = function () {
+        if (leadModal) leadModal.classList.add('hidden');
+    };
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function (event) {
+        if (event.target == leadModal) {
+            window.closeLeadModal();
+        }
+    });
+
+    if (leadForm) {
+        leadForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('leadName').value;
+            const whatsapp = document.getElementById('leadWhatsapp').value;
+            const submitBtn = leadForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxEmN7t8Yw62uPywMe9fZpErtlja2mmbiIHfksTj3zoMw5UdkTiWdlPIebpQzFMCOBVRw/exec';
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Mengirim...';
+
+            // 1. Fire Facebook Pixel Lead Event
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead', {
+                    content_name: 'Freelancer Kit Free Sample',
+                    currency: 'IDR',
+                    value: 0
+                });
+            }
+
+            // 2. Send data to Google Sheets
+            const formData = new URLSearchParams();
+            formData.append('nama', name);
+            formData.append('whatsapp', whatsapp);
+            formData.append('email', '-');
+            formData.append('referral', 'Lead Magnet');
+            formData.append('status', 'Free Sample');
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'
+            })
+                .then(response => {
+                    submitBtn.innerText = 'Berhasil! Mengunduh...';
+                    alert('Terima kasih! File sampel akan terkirim ke WhatsApp Anda (Simulasi). Silakan cek folder download Anda jika tersedia link langsung.');
+
+                    window.closeLeadModal();
+                    leadForm.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('Maaf, ada gangguan. Coba lagi nanti.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                });
+        });
+    }
+}
 
 // ===== Utility: Format Currency =====
 function formatRupiah(number) {
