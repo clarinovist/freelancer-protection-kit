@@ -218,8 +218,8 @@
                     </a>
                 </section>
 
-                <!-- 5. Social Proof / Footer -->
-                <footer class="flex flex-col items-center py-8 opacity-60">
+                <!-- 5. Social Proof -->
+                <section class="flex flex-col items-center py-4 opacity-60">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="flex -space-x-3">
                             <div
@@ -239,9 +239,33 @@
                         </div>
                     </div>
                     <p class="text-[#8db5ce] text-xs font-medium">Joined 10k+ freelancers securing their business.</p>
-                </footer>
+                </section>
             </div>
         </main>
+
+        <!-- Branded Footer -->
+        <footer class="border-t border-white/10 py-12 bg-background-light dark:bg-background-dark/50 backdrop-blur-md">
+            <div class="max-w-[640px] mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div class="flex items-center gap-3 grayscale opacity-60">
+                        <!-- Light Mode Logo -->
+                        <img src="assets/brand/Logo.png" class="dark:hidden" alt="SekolahDesain.id Logo"
+                            style="height: 24px; width: auto;">
+                        <!-- Dark Mode Logo -->
+                        <img src="assets/brand/logo-dark-mode.png" class="hidden dark:block" alt="SekolahDesain.id Logo"
+                            style="height: 24px; width: auto;">
+                    </div>
+                    <div class="flex gap-8 text-sm font-medium text-slate-500 pt-3">
+                        <a class="hover:text-primary transition-colors" href="#">Kebijakan Privasi</a>
+                        <a class="hover:text-primary transition-colors" href="#">Syarat & Ketentuan</a>
+                    </div>
+                </div>
+                <div
+                    class="text-center md:text-left text-slate-600 text-[10px] mt-8 uppercase tracking-widest font-bold">
+                    &copy; 2026 Freelancer Protection Kit Indonesia | SekolahDesain.id
+                </div>
+            </div>
+        </footer>
     </div>
 
     <script>
