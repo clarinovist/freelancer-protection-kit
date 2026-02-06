@@ -365,15 +365,15 @@ function initLeadMagnet() {
             // 2. Send data to Google Sheets
             const formData = new URLSearchParams();
             formData.append('nama', name);
+            formData.append('email', '');
             formData.append('whatsapp', whatsapp);
-            formData.append('email', '-');
             formData.append('referral', 'Calculator Lead');
-            formData.append('status', 'Calculator Access');
+
+            console.log('Submitting lead to spreadsheet...', Object.fromEntries(formData));
 
             fetch(scriptURL, {
                 method: 'POST',
-                body: formData,
-                mode: 'no-cors'
+                body: formData
             })
                 .then(response => {
                     submitBtn.innerText = 'Dialihkan ke Kalkulator...';
