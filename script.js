@@ -98,7 +98,7 @@ Mohon informasi untuk proses pembayaran. Terima kasih!`;
             const encodedMessage = encodeURIComponent(message);
 
             // Replace with your Google Sheets Script URL
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxEmN7t8Yw62uPywMe9fZpErtlja2mmbiIHfksTj3zoMw5UdkTiWdlPIebpQzFMCOBVRw/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbZstEKrmQvGm1wOj60luLNmiqAQB02suNARdvthUiQFV79xjORAFuIcmGidkaf1rf0Ag/exec';
 
             // Replace with your WhatsApp number
             const waNumber = '6285155421080'; // NOMOR WHATSAPP ANDA
@@ -348,7 +348,7 @@ function initLeadMagnet() {
             const whatsapp = document.getElementById('leadWhatsapp').value;
             const submitBtn = leadForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxEmN7t8Yw62uPywMe9fZpErtlja2mmbiIHfksTj3zoMw5UdkTiWdlPIebpQzFMCOBVRw/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbZstEKrmQvGm1wOj60luLNmiqAQB02suNARdvthUiQFV79xjORAFuIcmGidkaf1rf0Ag/exec';
 
             // UI Elements for Loading
             const leadFormContainer = document.getElementById('leadFormContainer');
