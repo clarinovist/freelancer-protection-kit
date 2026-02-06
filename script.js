@@ -299,14 +299,17 @@ function initButtonEffects() {
 
 // ===== Initialize Everything =====
 document.addEventListener('DOMContentLoaded', function () {
-    initCountdown();
-    initFAQ();
-    initSmoothScroll();
-    initForm();
-    initScrollAnimations();
-    initButtonEffects();
-    initStickyHeader();
-    initLeadMagnet(); // <-- Initialize Lead Magnet FIRST
+    // 1. Initialize Critical Lead Magnet FIRST
+    initLeadMagnet();
+
+    // 2. Initialize others with safety
+    try { initCountdown(); } catch (e) { }
+    try { initFAQ(); } catch (e) { }
+    try { initSmoothScroll(); } catch (e) { }
+    try { initForm(); } catch (e) { }
+    try { initScrollAnimations(); } catch (e) { }
+    try { initButtonEffects(); } catch (e) { }
+    try { initStickyHeader(); } catch (e) { }
 
     // Wrap dynamic checkout in try-catch to prevent blocking
     try {
@@ -346,8 +349,6 @@ function initLeadMagnet() {
             const name = document.getElementById('leadName').value;
             const email = document.getElementById('leadEmail').value;
             const whatsapp = document.getElementById('leadWhatsapp').value;
-            const submitBtn = leadForm.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerText;
             const scriptURL = 'https://script.google.com/macros/s/AKfycbVurETHx7h-7HtwNvGP_Ygpn6Qp-NIpmgweCEQthye-hUHCcTACgONi-naflkQuo2K7A/exec';
 
             // UI Elements for Loading
@@ -355,10 +356,11 @@ function initLeadMagnet() {
             const leadLoading = document.getElementById('leadLoading');
             const loadingStatus = document.getElementById('loadingStatus');
 
-            // 1. Show Loading UI
+            // 1. Show Loading UI IMMEDIATELY
             if (leadInitialContent && leadLoading) {
-                leadInitialContent.classList.add('hidden');
+                leadInitialContent.style.display = 'none'; // Safer than just class
                 leadLoading.classList.remove('hidden');
+                leadLoading.style.display = 'flex';
             }
 
             // 2. Fire Facebook Pixel Lead Event
@@ -382,7 +384,7 @@ function initLeadMagnet() {
                 if (statusIdx < statuses.length && loadingStatus) {
                     loadingStatus.innerText = statuses[statusIdx];
                 }
-            }, 1500);
+            }, 1200);
 
             // 4. Send data to Google Sheets
             const formData = new URLSearchParams();
@@ -390,18 +392,24 @@ function initLeadMagnet() {
             formData.append('email', email);
             formData.append('whatsapp', whatsapp);
             formData.append('referral', 'Calculator Lead');
-            formData.append('status', 'Free Sample'); // Matches Apps Script CAPI 'Lead' event
+            formData.append('status', 'Free Sample');
 
-            console.log('Submitting lead to spreadsheet...', Object.fromEntries(formData));
+            console.log('Submitting lead...', Object.fromEntries(formData));
+
+            // Start redirect timer regardless of fetch speed for better UX
+            const redirectDelay = 4000;
+            const startTime = Date.now();
 
             fetch(scriptURL, {
                 method: 'POST',
                 body: formData
             })
-                .then(() => {
-                    console.log('Lead request sent');
+                .then(() => console.log('Lead sync successful'))
+                .catch(err => console.warn('Lead sync failed, proceeding to app anyway', err))
+                .finally(() => {
+                    const elapsed = Date.now() - startTime;
+                    const remaining = Math.max(0, redirectDelay - elapsed);
 
-                    // Final transition timing
                     setTimeout(() => {
                         clearInterval(statusInterval);
                         if (loadingStatus) loadingStatus.innerText = 'Mengalihkan...';
@@ -412,20 +420,8 @@ function initLeadMagnet() {
 
                         // Redirect to Interactive Calculator App
                         const targetUrl = `./calculator/index.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
-                        console.log('Redirecting to:', targetUrl);
                         window.location.href = targetUrl;
-                    }, 4500); // Give user more time to see the premium transition
-                })
-                .catch(error => {
-                    console.error('Error!', error.message);
-                    clearInterval(statusInterval);
-                    if (leadInitialContent && leadLoading) {
-                        leadInitialContent.classList.remove('hidden');
-                        leadLoading.classList.add('hidden');
-                    }
-                    alert('Maaf, ada gangguan sinkronisasi. Coba lagi nanti.');
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = originalBtnText;
+                    }, remaining);
                 });
         });
     }
