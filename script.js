@@ -344,6 +344,7 @@ function initLeadMagnet() {
             e.preventDefault();
 
             const name = document.getElementById('leadName').value;
+            const email = document.getElementById('leadEmail').value;
             const whatsapp = document.getElementById('leadWhatsapp').value;
             const submitBtn = leadForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
@@ -365,7 +366,7 @@ function initLeadMagnet() {
             // 2. Send data to Google Sheets
             const formData = new URLSearchParams();
             formData.append('nama', name);
-            formData.append('email', '');
+            formData.append('email', email);
             formData.append('whatsapp', whatsapp);
             formData.append('referral', 'Calculator Lead');
 
@@ -385,7 +386,7 @@ function initLeadMagnet() {
                     // Redirect to Interactive Calculator App
                     setTimeout(() => {
                         // Use explicit relative path `./` to ensure it looks in the current directory
-                        const targetUrl = './calculator/index.html?name=' + encodeURIComponent(name);
+                        const targetUrl = `./calculator/index.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
                         console.log('Redirecting to:', targetUrl);
                         window.location.href = targetUrl;
                     }, 1000);
