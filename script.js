@@ -351,13 +351,13 @@ function initLeadMagnet() {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbw8zylrUV5TIQwU6_t4AR0qPJyX5oYrJEi97PcT9ccm6_MEYnKzo4TAINg3rbnnZ7ciA/exec';
 
             // UI Elements for Loading
-            const leadFormContainer = document.getElementById('leadFormContainer');
+            const leadInitialContent = document.getElementById('leadInitialContent');
             const leadLoading = document.getElementById('leadLoading');
             const loadingStatus = document.getElementById('loadingStatus');
 
             // 1. Show Loading UI
-            if (leadFormContainer && leadLoading) {
-                leadFormContainer.classList.add('hidden');
+            if (leadInitialContent && leadLoading) {
+                leadInitialContent.classList.add('hidden');
                 leadLoading.classList.remove('hidden');
             }
 
@@ -373,7 +373,7 @@ function initLeadMagnet() {
             // 3. Status Message Sequence
             const statuses = [
                 'Menyinkronkan data...',
-                'Menyiapkan workspace Anda...',
+                'Menyiapkan workspace...',
                 'Hampir siap! Mengalihkan...'
             ];
             let statusIdx = 0;
@@ -382,7 +382,7 @@ function initLeadMagnet() {
                 if (statusIdx < statuses.length && loadingStatus) {
                     loadingStatus.innerText = statuses[statusIdx];
                 }
-            }, 1200);
+            }, 1500);
 
             // 4. Send data to Google Sheets
             const formData = new URLSearchParams();
@@ -399,7 +399,7 @@ function initLeadMagnet() {
                 body: formData
             })
                 .then(() => {
-                    console.log('Lead request sent (no-cors)');
+                    console.log('Lead request sent');
 
                     // Final transition timing
                     setTimeout(() => {
@@ -414,13 +414,13 @@ function initLeadMagnet() {
                         const targetUrl = `./calculator/index.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
                         console.log('Redirecting to:', targetUrl);
                         window.location.href = targetUrl;
-                    }, 3500); // Give user time to see the premium transition
+                    }, 4500); // Give user more time to see the premium transition
                 })
                 .catch(error => {
                     console.error('Error!', error.message);
                     clearInterval(statusInterval);
-                    if (leadFormContainer && leadLoading) {
-                        leadFormContainer.classList.remove('hidden');
+                    if (leadInitialContent && leadLoading) {
+                        leadInitialContent.classList.remove('hidden');
                         leadLoading.classList.add('hidden');
                     }
                     alert('Maaf, ada gangguan sinkronisasi. Coba lagi nanti.');
