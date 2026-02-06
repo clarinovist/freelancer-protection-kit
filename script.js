@@ -306,8 +306,14 @@ document.addEventListener('DOMContentLoaded', function () {
     initScrollAnimations();
     initButtonEffects();
     initStickyHeader();
-    initDynamicCheckout(); // <-- initialize dynamic checkout
-    initLeadMagnet(); // <-- initialize lead magnet
+    initLeadMagnet(); // <-- Initialize Lead Magnet FIRST
+
+    // Wrap dynamic checkout in try-catch to prevent blocking
+    try {
+        initDynamicCheckout();
+    } catch (e) {
+        console.warn('Dynamic Checkout Init skipped:', e);
+    }
 
     console.log('Freelancer Protection Kit - Landing Page Loaded');
 });
