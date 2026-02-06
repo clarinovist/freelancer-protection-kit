@@ -390,7 +390,7 @@ function initLeadMagnet() {
             formData.append('email', email);
             formData.append('whatsapp', whatsapp);
             formData.append('referral', 'Calculator Lead');
-            formData.append('status', 'Calculator Access'); // Restored key
+            formData.append('status', 'Free Sample'); // Matches Apps Script CAPI 'Lead' event
 
             console.log('Submitting lead to spreadsheet...', Object.fromEntries(formData));
 
