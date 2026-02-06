@@ -45,7 +45,7 @@
 
                     <div class="grid-2">
                         <div class="form-group">
-                            <label for="operational">Biaya Operasional (Listrik, Internet, Software)</label>
+                            <label for="operational">Biaya Operasional (Listrik, etc)</label>
                             <div class="input-wrapper">
                                 <span class="currency">Rp</span>
                                 <input type="number" id="operational" placeholder="Contoh: 1.500.000" min="0">
@@ -56,6 +56,24 @@
                             <div class="input-wrapper">
                                 <span class="currency">Rp</span>
                                 <input type="number" id="savings" placeholder="Contoh: 2.000.000" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Financial Buffers -->
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="insurance">BPJS / Asuransi Kesehatan</label>
+                            <div class="input-wrapper">
+                                <span class="currency">Rp</span>
+                                <input type="number" id="insurance" placeholder="Contoh: 150.000" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tax">Estimasi Pajak (Bulanan)</label>
+                            <div class="input-wrapper">
+                                <span class="currency">Rp</span>
+                                <input type="number" id="tax" placeholder="Contoh: 500.000" min="0">
                             </div>
                         </div>
                     </div>
@@ -106,6 +124,26 @@
                         </div>
                     </div>
 
+                    <!-- NEW: Health Dashboard -->
+                    <div class="health-dashboard">
+                        <div class="health-header">
+                            <span>Kesehatan Bisnis</span>
+                            <span id="healthLabel" class="health-label">...</span>
+                        </div>
+                        <div class="health-bar-container">
+                            <div id="healthBar" class="health-bar" style="width: 0%"></div>
+                        </div>
+                        <p id="healthAdvice" class="health-advice">Lengkapi data untuk analisa.</p>
+                    </div>
+
+                    <!-- NEW: Quotation Generator -->
+                    <div class="quotation-section">
+                        <button id="generateQuoteBtn" class="btn-secondary">
+                            <span class="material-symbols-outlined">description</span>
+                            Buat Draft Penawaran
+                        </button>
+                    </div>
+
                     <div class="cta-box">
                         <p>Ingin buat kontrak kerja profesional dengan tarif ini?</p>
                         <a href="../../Freelancer%20Kit/checkout.html" class="btn-primary">
@@ -115,6 +153,39 @@
                 </div>
             </section>
         </main>
+    </div>
+
+    <!-- NEW: Quote Modal -->
+    <div id="quoteModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Draft Penawaran</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nama Klien / Project</label>
+                    <input type="text" id="clientName" placeholder="Contoh: PT Maju Mundur">
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Estimasi Jam</label>
+                        <input type="number" id="projectHours" placeholder="10">
+                    </div>
+                    <div class="form-group">
+                        <label>Diskon / Adjustment</label>
+                        <input type="number" id="adjustment" placeholder="0">
+                    </div>
+                </div>
+                <label>Preview Pesan (WhatsApp/Email)</label>
+                <textarea id="quoteText" rows="8" readonly></textarea>
+                <button id="copyQuoteBtn" class="btn-primary">Salin Teks</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+    </main>
     </div>
 
     <script src="app.js"></script>

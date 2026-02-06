@@ -350,7 +350,7 @@ function initLeadMagnet() {
             // 1. Fire Facebook Pixel Lead Event
             if (typeof fbq === 'function') {
                 fbq('track', 'Lead', {
-                    content_name: 'Freelancer Kit Free Sample',
+                    content_name: 'Interactive Calculator Access',
                     currency: 'IDR',
                     value: 0
                 });
@@ -361,8 +361,8 @@ function initLeadMagnet() {
             formData.append('nama', name);
             formData.append('whatsapp', whatsapp);
             formData.append('email', '-');
-            formData.append('referral', 'Lead Magnet');
-            formData.append('status', 'Free Sample');
+            formData.append('referral', 'Calculator Lead');
+            formData.append('status', 'Calculator Access');
 
             fetch(scriptURL, {
                 method: 'POST',
