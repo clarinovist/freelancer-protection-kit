@@ -350,11 +350,18 @@ function initLeadMagnet() {
             const originalBtnText = submitBtn.innerText;
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxEmN7t8Yw62uPywMe9fZpErtlja2mmbiIHfksTj3zoMw5UdkTiWdlPIebpQzFMCOBVRw/exec';
 
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Mengirim...';
+            // UI Elements for Loading
+            const leadFormContainer = document.getElementById('leadFormContainer');
+            const leadLoading = document.getElementById('leadLoading');
+            const loadingStatus = document.getElementById('loadingStatus');
 
-            // 1. Fire Facebook Pixel Lead Event
+            // 1. Show Loading UI
+            if (leadFormContainer && leadLoading) {
+                leadFormContainer.classList.add('hidden');
+                leadLoading.classList.remove('hidden');
+            }
+
+            // 2. Fire Facebook Pixel Lead Event
             if (typeof fbq === 'function') {
                 fbq('track', 'Lead', {
                     content_name: 'Interactive Calculator Access',
@@ -363,37 +370,61 @@ function initLeadMagnet() {
                 });
             }
 
-            // 2. Send data to Google Sheets
+            // 3. Status Message Sequence
+            const statuses = [
+                'Menyinkronkan data...',
+                'Menyiapkan workspace Anda...',
+                'Hampir siap! Mengalihkan...'
+            ];
+            let statusIdx = 0;
+            const statusInterval = setInterval(() => {
+                statusIdx++;
+                if (statusIdx < statuses.length && loadingStatus) {
+                    loadingStatus.innerText = statuses[statusIdx];
+                }
+            }, 1200);
+
+            // 4. Send data to Google Sheets
             const formData = new URLSearchParams();
             formData.append('nama', name);
             formData.append('email', email);
             formData.append('whatsapp', whatsapp);
             formData.append('referral', 'Calculator Lead');
+            formData.append('status', 'Calculator Access'); // Restored key
 
             console.log('Submitting lead to spreadsheet...', Object.fromEntries(formData));
 
             fetch(scriptURL, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                mode: 'no-cors' // Restored for reliable background sync with Apps Script
             })
-                .then(response => {
-                    submitBtn.innerText = 'Dialihkan ke Kalkulator...';
+                .then(() => {
+                    console.log('Lead request sent (no-cors)');
 
-                    // Close modal and reset form
-                    window.closeLeadModal();
-                    leadForm.reset();
-
-                    // Redirect to Interactive Calculator App
+                    // Final transition timing
                     setTimeout(() => {
-                        // Use explicit relative path `./` to ensure it looks in the current directory
+                        clearInterval(statusInterval);
+                        if (loadingStatus) loadingStatus.innerText = 'Mengalihkan...';
+
+                        // Close modal and reset form
+                        window.closeLeadModal();
+                        leadForm.reset();
+
+                        // Redirect to Interactive Calculator App
                         const targetUrl = `./calculator/index.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
                         console.log('Redirecting to:', targetUrl);
                         window.location.href = targetUrl;
-                    }, 1000);
+                    }, 3500); // Give user time to see the premium transition
                 })
                 .catch(error => {
                     console.error('Error!', error.message);
-                    alert('Maaf, ada gangguan. Coba lagi nanti.');
+                    clearInterval(statusInterval);
+                    if (leadFormContainer && leadLoading) {
+                        leadFormContainer.classList.remove('hidden');
+                        leadLoading.classList.add('hidden');
+                    }
+                    alert('Maaf, ada gangguan sinkronisasi. Coba lagi nanti.');
                     submitBtn.disabled = false;
                     submitBtn.innerText = originalBtnText;
                 });
