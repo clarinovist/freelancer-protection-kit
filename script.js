@@ -116,10 +116,17 @@ Mohon informasi untuk proses pembayaran. Terima kasih!`;
                 formData.append('email', email);
                 formData.append('whatsapp', whatsapp);
                 formData.append('referral', referral);
-                // (Lead Magnet logic moved to global initLeadMagnet function)
-                fetch(scriptURL, { method: 'POST', body: formData })
-                    .then(response => console.log('Lead saved successfully'))
-                    .catch(error => console.error('Error saving lead:', error))
+                formData.append('status', 'Checkout');
+
+                console.log('Form: Submitting to spreadsheet...', Object.fromEntries(formData));
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                })
+                    .then(() => console.log('Form: Lead saved successfully (opaque)'))
+                    .catch(error => console.error('Form: Error saving lead:', error))
                     .finally(() => {
                         // Open WhatsApp in new tab
                         window.open(`https://wa.me/${waNumber}?text=${encodedMessage}`, '_blank');
@@ -402,10 +409,11 @@ function initLeadMagnet() {
 
             fetch(scriptURL, {
                 method: 'POST',
+                mode: 'no-cors', // Essential for Google Apps Script redirects
                 body: formData
             })
-                .then(() => console.log('Lead sync successful'))
-                .catch(err => console.warn('Lead sync failed, proceeding to app anyway', err))
+                .then(() => console.log('Lead: Sync successful (opaque)'))
+                .catch(err => console.warn('Lead: Sync failed, proceeding to app anyway', err))
                 .finally(() => {
                     const elapsed = Date.now() - startTime;
                     const remaining = Math.max(0, redirectDelay - elapsed);
@@ -416,10 +424,10 @@ function initLeadMagnet() {
 
                         // Close modal and reset form
                         window.closeLeadModal();
-                        leadForm.reset();
 
                         // Redirect to Interactive Calculator App
                         const targetUrl = `./calculator/index.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
+                        console.log('Lead: Redirecting to:', targetUrl);
                         window.location.href = targetUrl;
                     }, remaining);
                 });
