@@ -396,8 +396,7 @@ function initLeadMagnet() {
 
             fetch(scriptURL, {
                 method: 'POST',
-                body: formData,
-                mode: 'no-cors' // Restored for reliable background sync with Apps Script
+                body: formData
             })
                 .then(() => {
                     console.log('Lead request sent (no-cors)');
