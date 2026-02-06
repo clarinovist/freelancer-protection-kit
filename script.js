@@ -384,7 +384,10 @@ function initLeadMagnet() {
 
                     // Redirect to Interactive Calculator App
                     setTimeout(() => {
-                        window.location.href = 'calculator/index.html?name=' + encodeURIComponent(name);
+                        // Use explicit relative path `./` to ensure it looks in the current directory
+                        const targetUrl = './calculator/index.html?name=' + encodeURIComponent(name);
+                        console.log('Redirecting to:', targetUrl);
+                        window.location.href = targetUrl;
                     }, 1000);
                 })
                 .catch(error => {

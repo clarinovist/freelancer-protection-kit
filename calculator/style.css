@@ -86,6 +86,23 @@ h3 {
 @media (max-width: 768px) {
     .calculator-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .app-container {
+        padding: 1rem;
+    }
+
+    .price-value {
+        font-size: 3rem;
+    }
+
+    .logo-icon {
+        font-size: 1.75rem;
+    }
+
+    .brand h1 {
+        font-size: 1.25rem;
     }
 }
 
@@ -159,6 +176,12 @@ input[type="number"]:focus {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
 }
 
 .divider {

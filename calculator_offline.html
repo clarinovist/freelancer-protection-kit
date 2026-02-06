@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Tarif Freelancer Pro</title>
+    <style>
+:root {
+    --primary: #009DFF;
+    --primary-dark: #007ACC;
+    --background: #0B0C10;
+    --surface: #151b23;
+    --surface-light: #1e2936;
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.1);
+    --success: #10b981;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--background);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Onest', sans-serif;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 2rem;
+}
+
+/* Header */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-icon {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.brand h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.highlight {
+    color: var(--primary);
+}
+
+.user-greeting {
+    background: var(--surface-light);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    border: 1px solid var(--border);
+}
+
+/* Grid Layout */
+.calculator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .calculator-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Cards */
+.card {
+    background: var(--surface);
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+    margin-bottom: 1.5rem;
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.card-header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.currency {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+input[type="number"] {
+    width: 100%;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    transition: border-color 0.2s;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.divider {
+    height: 1px;
+    background: var(--border);
+    margin: 2rem 0;
+}
+
+/* Sliders */
+input[type="range"] {
+    width: 100%;
+    background: var(--surface-light);
+    height: 6px;
+    border-radius: 3px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.slider-value {
+    margin-top: 0.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: right;
+}
+
+/* Result Card */
+.result-card {
+    background: linear-gradient(135deg, var(--surface) 0%, #1a232e 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.result-header h3 {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.result-header p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+.price-display {
+    margin: 2rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.currency-symbol {
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+.price-value {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: 'Onest', sans-serif;
+    line-height: 1;
+}
+
+.price-unit {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.stat-item {
+    background: var(--surface-light);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* CTA */
+.cta-box {
+    background: rgba(0, 157, 255, 0.1);
+    border: 1px solid rgba(0, 157, 255, 0.2);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.cta-box p {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.btn-primary {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    transition: background 0.2s, transform 0.2s;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1rem;
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 157, 255, 0.1);
+}
+
+/* Health Dashboard */
+.health-dashboard {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+}
+
+.health-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.health-label {
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.health-bar-container {
+    height: 8px;
+    background: var(--surface);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.health-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease, background-color 0.5s ease;
+}
+
+.health-advice {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.modal.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.modal-content {
+    background-color: var(--surface);
+    margin: 15% auto;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.close-modal {
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: var(--text-main);
+}
+
+textarea {
+    width: 100%;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    resize: vertical;
+    margin-bottom: 1rem;
+    font-family: monospace;
+}
+</style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Header -->
+        <header class="app-header">
+            <div class="brand">
+                <span class="material-symbols-outlined logo-icon">calculate</span>
+                <h1>Freelance<span class="highlight">Rate</span></h1>
+            </div>
+            <div class="user-greeting" id="userGreeting">
+                Halo, <span id="userName">Desainer</span>!
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="calculator-grid">
+            <!-- Input Section -->
+            <section class="card input-card">
+                <div class="card-header">
+                    <h2>📊 Komponen Biaya</h2>
+                    <p>Masukkan target dan biaya bulananmu.</p>
+                </div>
+
+                <form id="calculatorForm">
+                    <div class="form-group">
+                        <label for="salary">Gaji Bersih yang Diinginkan (Per Bulan)</label>
+                        <div class="input-wrapper">
+                            <span class="currency">Rp</span>
+                            <input type="number" id="salary" placeholder="Contoh: 10.000.000" min="0">
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="operational">Biaya Operasional (Listrik, etc)</label>
+                            <div class="input-wrapper">
+                                <span class="currency">Rp</span>
+                                <input type="number" id="operational" placeholder="Contoh: 1.500.000" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="savings">Tabungan / Dana Darurat</label>
+                            <div class="input-wrapper">
+                                <span class="currency">Rp</span>
+                                <input type="number" id="savings" placeholder="Contoh: 2.000.000" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Financial Buffers -->
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="insurance">BPJS / Asuransi Kesehatan</label>
+                            <div class="input-wrapper">
+                                <span class="currency">Rp</span>
+                                <input type="number" id="insurance" placeholder="Contoh: 150.000" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tax">Estimasi Pajak (Bulanan)</label>
+                            <div class="input-wrapper">
+                                <span class="currency">Rp</span>
+                                <input type="number" id="tax" placeholder="Contoh: 500.000" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="card-header">
+                        <h2>⏳ Kapasitas Kerja</h2>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="daysPerWeek">Hari Kerja / Minggu</label>
+                            <input type="range" id="daysPerWeek" min="1" max="7" value="5" class="slider">
+                            <div class="slider-value"><span id="daysValue">5</span> Hari</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="hoursPerDay">Jam Efektif / Hari</label>
+                            <input type="range" id="hoursPerDay" min="1" max="12" value="6" class="slider">
+                            <div class="slider-value"><span id="hoursValue">6</span> Jam</div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Result Section -->
+            <section class="card result-card">
+                <div class="result-content">
+                    <div class="result-header">
+                        <h3>Tarif Minimum Kamu</h3>
+                        <p>Harga jual aman (sudah termasuk margin 30%)</p>
+                    </div>
+
+                    <div class="price-display">
+                        <span class="currency-symbol">Rp</span>
+                        <span class="price-value" id="hourlyRate">0</span>
+                        <span class="price-unit">/ jam</span>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Target</span>
+                            <span class="stat-value" id="totalNeed">Rp 0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Jam Kerja</span>
+                            <span class="stat-value" id="totalHours">0 Jam</span>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Health Dashboard -->
+                    <div class="health-dashboard">
+                        <div class="health-header">
+                            <span>Kesehatan Bisnis</span>
+                            <span id="healthLabel" class="health-label">...</span>
+                        </div>
+                        <div class="health-bar-container">
+                            <div id="healthBar" class="health-bar" style="width: 0%"></div>
+                        </div>
+                        <p id="healthAdvice" class="health-advice">Lengkapi data untuk analisa.</p>
+                    </div>
+
+                    <!-- NEW: Quotation Generator -->
+                    <div class="quotation-section">
+                        <button id="generateQuoteBtn" class="btn-secondary">
+                            <span class="material-symbols-outlined">description</span>
+                            Buat Draft Penawaran
+                        </button>
+                    </div>
+
+                    <div class="cta-box">
+                        <p>Ingin buat kontrak kerja profesional dengan tarif ini?</p>
+                        <a href="../../Freelancer%20Kit/checkout.html" class="btn-primary">
+                            Dapatkan Freelancer Kit (Rp 99rb)
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- NEW: Quote Modal -->
+    <div id="quoteModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Draft Penawaran</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nama Klien / Project</label>
+                    <input type="text" id="clientName" placeholder="Contoh: PT Maju Mundur">
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Estimasi Jam</label>
+                        <input type="number" id="projectHours" placeholder="10">
+                    </div>
+                    <div class="form-group">
+                        <label>Diskon / Adjustment</label>
+                        <input type="number" id="adjustment" placeholder="0">
+                    </div>
+                </div>
+                <label>Preview Pesan (WhatsApp/Email)</label>
+                <textarea id="quoteText" rows="8" readonly></textarea>
+                <button id="copyQuoteBtn" class="btn-primary">Salin Teks</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+    </main>
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. Initialize User Name from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const userName = urlParams.get('name');
+    if (userName) {
+        document.getElementById('userName').textContent = userName;
+    }
+
+    // 2. Elements
+    const inputs = {
+        salary: document.getElementById('salary'),
+        operational: document.getElementById('operational'),
+        savings: document.getElementById('savings'),
+        insurance: document.getElementById('insurance'), // NEW
+        tax: document.getElementById('tax'), // NEW
+        days: document.getElementById('daysPerWeek'),
+        hours: document.getElementById('hoursPerDay')
+    };
+
+    const displays = {
+        days: document.getElementById('daysValue'),
+        hours: document.getElementById('hoursValue'),
+        rate: document.getElementById('hourlyRate'),
+        totalNeed: document.getElementById('totalNeed'),
+        totalHours: document.getElementById('totalHours'),
+        healthLabel: document.getElementById('healthLabel'), // NEW
+        healthBar: document.getElementById('healthBar'), // NEW
+        healthAdvice: document.getElementById('healthAdvice') // NEW
+    };
+
+    // 3. Format Currency
+    const formatRupiah = (num) => {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'decimal',
+            minimumFractionDigits: 0
+        }).format(num);
+    };
+
+    // 4. Calculation Logic
+    let currentSellingPrice = 0;
+
+    function calculate() {
+        // Get values
+        const salary = Number(inputs.salary.value) || 0;
+        const ops = Number(inputs.operational.value) || 0;
+        const save = Number(inputs.savings.value) || 0;
+        const ins = Number(inputs.insurance.value) || 0;
+        const tax = Number(inputs.tax.value) || 0;
+        const days = Number(inputs.days.value);
+        const hours = Number(inputs.hours.value);
+
+        // Update Slider Displays
+        displays.days.textContent = days;
+        displays.hours.textContent = hours;
+
+        // Core Calc
+        const totalMonthlyNeed = salary + ops + save + ins + tax;
+        const totalMonthlyHours = days * hours * 4; // 4 weeks
+
+        let hourlyRateBase = 0;
+        if (totalMonthlyHours > 0) {
+            hourlyRateBase = totalMonthlyNeed / totalMonthlyHours;
+        }
+
+        currentSellingPrice = hourlyRateBase * 1.3; // 30% Margin
+
+        // Update UI
+        displays.rate.textContent = formatRupiah(Math.ceil(currentSellingPrice));
+        displays.totalNeed.textContent = 'Rp ' + formatRupiah(totalMonthlyNeed);
+        displays.totalHours.textContent = totalMonthlyHours + ' Jam/Bulan';
+
+        // Dynamic color for rate
+        const rateEl = displays.rate.parentElement;
+        if (currentSellingPrice > 0) {
+            rateEl.style.opacity = '1';
+        } else {
+            rateEl.style.opacity = '0.5';
+        }
+
+        // --- HEALTH DASHBOARD LOGIC ---
+        let healthScore = 0;
+        let advice = "";
+        let color = "#ef4444"; // Red
+
+        if (salary > 0 && ops > 0) healthScore += 50;
+        if (save > 0) healthScore += 20;
+        if (ins > 0) healthScore += 15;
+        if (tax > 0) healthScore += 15;
+
+        if (healthScore < 50) {
+            displays.healthLabel.textContent = "Survival Mode ⚠️";
+            advice = "Tarif ini berisiko! Anda belum memasukkan tabungan atau asuransi.";
+            color = "#ef4444";
+        } else if (healthScore < 85) {
+            displays.healthLabel.textContent = "Stable ✅";
+            advice = "Sudah aman, tapi belum maksimal untuk pertumbuhan jangka panjang.";
+            color = "#eab308"; // Yellow
+        } else {
+            displays.healthLabel.textContent = "Professional 🚀";
+            advice = "Sempurna! Tarif ini mencakup masa depan, kesehatan, dan pajak.";
+            color = "#22c55e"; // Green
+        }
+
+        if (displays.healthBar) {
+            displays.healthBar.style.width = `${healthScore}%`;
+            displays.healthBar.style.backgroundColor = color;
+        }
+        if (displays.healthAdvice) {
+            displays.healthAdvice.textContent = advice;
+        }
+    }
+
+    // 5. Add Listeners
+    Object.values(inputs).forEach(input => {
+        if (input) input.addEventListener('input', calculate);
+    });
+
+    // --- QUOTATION GENERATOR LOGIC ---
+    const modal = document.getElementById('quoteModal');
+    const generateBtn = document.getElementById('generateQuoteBtn');
+    const closeBtn = document.querySelector('.close-modal');
+    const copyBtn = document.getElementById('copyQuoteBtn');
+
+    // Inputs inside modal
+    const clientNameInput = document.getElementById('clientName');
+    const projectHoursInput = document.getElementById('projectHours');
+    const adjustmentInput = document.getElementById('adjustment');
+    const quoteTextArea = document.getElementById('quoteText');
+
+    function updateQuoteText() {
+        const client = clientNameInput.value || '[Nama Klien]';
+        const hours = Number(projectHoursInput.value) || 0;
+        const adjust = Number(adjustmentInput.value) || 0;
+
+        const subtotal = Math.ceil(currentSellingPrice) * hours;
+        const total = subtotal - adjust;
+
+        const text = `Halo ${client},
+
+Terima kasih atas diskusinya. Berdasarkan kebutuhan project ini, berikut adalah estimasi penawaran profesional saya:
+
+📋 **Rincian Biaya**
+• Rate Profesional: Rp ${formatRupiah(Math.ceil(currentSellingPrice))}/jam
+• Estimasi Waktu: ${hours} jam
+• Subtotal: Rp ${formatRupiah(subtotal)}
+${adjust > 0 ? `• Diskon/Adjustment: -Rp ${formatRupiah(adjust)}\n` : ''}
+**TOTAL ESTIMASI: Rp ${formatRupiah(total)}**
+
+⏳ **Waktu Pengerjaan:** ±${Math.ceil(hours / (Number(inputs.hours.value) || 1))} hari kerja standard.
+
+Harga ini sudah mencakup revisi minor 2x dan serah terima file master. Jika setuju, saya akan siapkan draft kontrak kerjanya (SPK).
+
+Salam,
+${document.getElementById('userName').textContent}`;
+
+        quoteTextArea.value = text;
+    }
+
+    if (generateBtn) {
+        generateBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+            updateQuoteText();
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.add('hidden');
+    });
+
+    [clientNameInput, projectHoursInput, adjustmentInput].forEach(el => {
+        if (el) el.addEventListener('input', updateQuoteText);
+    });
+
+    if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+            quoteTextArea.select();
+            document.execCommand('copy'); // Fallback
+            navigator.clipboard.writeText(quoteTextArea.value).then(() => {
+                copyBtn.textContent = "Tersalin! ✅";
+                setTimeout(() => copyBtn.textContent = "Salin Teks", 2000);
+            });
+        });
+    }
+
+    // Initial run
+    calculate();
+});
+
+</script>
+</body>
+
+</html>
