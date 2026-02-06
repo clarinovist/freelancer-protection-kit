@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Tarif Freelancer Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Header -->
+        <header class="app-header">
+            <div class="brand">
+                <span class="material-symbols-outlined logo-icon">calculate</span>
+                <h1>Freelance<span class="highlight">Rate</span></h1>
+            </div>
+            <div class="user-greeting" id="userGreeting">
+                Halo, <span id="userName">Desainer</span>!
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="calculator-grid">
+            <!-- Input Section -->
+            <section class="card input-card">
+                <div class="card-header">
+                    <h2>📊 Komponen Biaya</h2>
+                    <p>Masukkan target dan biaya bulananmu.</p>
+                </div>
+
+                <form id="calculatorForm">
+                    <div class="form-group">
+                        <label for="salary">Gaji Bersih yang Diinginkan (Per Bulan)</label>
+                        <div class="input-wrapper">
+                            <span class="currency">Rp</span>
+                            <input type="number" id="salary" placeholder="Contoh: 10.000.000" min="0">
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="operational">Biaya Operasional (Listrik, Internet, Software)</label>
+                            <div class="input-wrapper">
+                                <span class="currency">Rp</span>
+                                <input type="number" id="operational" placeholder="Contoh: 1.500.000" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="savings">Tabungan / Dana Darurat</label>
+                            <div class="input-wrapper">
+                                <span class="currency">Rp</span>
+                                <input type="number" id="savings" placeholder="Contoh: 2.000.000" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="card-header">
+                        <h2>⏳ Kapasitas Kerja</h2>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="daysPerWeek">Hari Kerja / Minggu</label>
+                            <input type="range" id="daysPerWeek" min="1" max="7" value="5" class="slider">
+                            <div class="slider-value"><span id="daysValue">5</span> Hari</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="hoursPerDay">Jam Efektif / Hari</label>
+                            <input type="range" id="hoursPerDay" min="1" max="12" value="6" class="slider">
+                            <div class="slider-value"><span id="hoursValue">6</span> Jam</div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Result Section -->
+            <section class="card result-card">
+                <div class="result-content">
+                    <div class="result-header">
+                        <h3>Tarif Minimum Kamu</h3>
+                        <p>Harga jual aman (sudah termasuk margin 30%)</p>
+                    </div>
+
+                    <div class="price-display">
+                        <span class="currency-symbol">Rp</span>
+                        <span class="price-value" id="hourlyRate">0</span>
+                        <span class="price-unit">/ jam</span>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Target</span>
+                            <span class="stat-value" id="totalNeed">Rp 0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Jam Kerja</span>
+                            <span class="stat-value" id="totalHours">0 Jam</span>
+                        </div>
+                    </div>
+
+                    <div class="cta-box">
+                        <p>Ingin buat kontrak kerja profesional dengan tarif ini?</p>
+                        <a href="../../Freelancer%20Kit/checkout.html" class="btn-primary">
+                            Dapatkan Freelancer Kit (Rp 99rb)
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

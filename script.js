@@ -370,13 +370,16 @@ function initLeadMagnet() {
                 mode: 'no-cors'
             })
                 .then(response => {
-                    submitBtn.innerText = 'Berhasil! Mengunduh...';
-                    alert('Terima kasih! File sampel akan terkirim ke WhatsApp Anda (Simulasi). Silakan cek folder download Anda jika tersedia link langsung.');
+                    submitBtn.innerText = 'Dialihkan ke Kalkulator...';
 
+                    // Close modal and reset form
                     window.closeLeadModal();
                     leadForm.reset();
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = originalBtnText;
+
+                    // Redirect to Interactive Calculator App
+                    setTimeout(() => {
+                        window.location.href = 'calculator/index.html?name=' + encodeURIComponent(name);
+                    }, 1000);
                 })
                 .catch(error => {
                     console.error('Error!', error.message);
