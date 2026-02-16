@@ -160,6 +160,9 @@ ${document.getElementById('userName').textContent}`;
         generateBtn.addEventListener('click', () => {
             modal.classList.remove('hidden');
             updateQuoteText();
+            // Tracking
+            if (typeof fbq === 'function') fbq('trackCustom', 'GenerateQuote');
+            if (typeof gtag === 'function') gtag('event', 'generate_quote', { 'event_category': 'calculator' });
         });
     }
 
@@ -185,6 +188,9 @@ ${document.getElementById('userName').textContent}`;
                 copyBtn.textContent = "Tersalin! ✅";
                 setTimeout(() => copyBtn.textContent = "Salin Teks", 2000);
             });
+            // Tracking
+            if (typeof fbq === 'function') fbq('trackCustom', 'CopyQuote');
+            if (typeof gtag === 'function') gtag('event', 'copy_quote', { 'event_category': 'calculator' });
         });
     }
 
