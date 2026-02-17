@@ -309,7 +309,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // 1. Initialize Critical Lead Magnet FIRST
     initLeadMagnet();
 
-    // 2. Initialize others with safety
+    // 2. Initialize Analytics & Growth
+    try { initScrollTracking(); } catch (e) { console.warn('Analytics init failed', e); }
+    try { initCTATracking(); } catch (e) { }
+    try { initEngagementBuckets(); } catch (e) { }
+    try { initSectionTracking(); } catch (e) { }
+    try { initExitPopup(); } catch (e) { }
+
+    // 3. Initialize others with safety
     try { initCountdown(); } catch (e) { }
     try { initFAQ(); } catch (e) { }
     try { initSmoothScroll(); } catch (e) { }
@@ -461,4 +468,125 @@ function formatPhone(phone) {
     }
 
     return cleaned;
+}
+
+// ===== Analytics Tracking =====
+function initScrollTracking() {
+    const thresholds = [25, 50, 75, 100];
+    const triggered = new Set();
+    
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+        
+        thresholds.forEach(t => {
+            if (scrollPercent >= t && !triggered.has(t)) {
+                triggered.add(t);
+                if (typeof gtag === 'function') {
+                    gtag('event', 'scroll_depth', { 
+                        depth_percentage: t, 
+                        page_title: document.title 
+                    });
+                }
+            }
+        });
+    });
+}
+
+function initCTATracking() {
+    document.querySelectorAll('a[href*="checkout.html"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (typeof gtag === 'function') {
+                gtag('event', 'cta_clicked', { 
+                    button_text: btn.innerText.trim(), 
+                    location: btn.closest('section')?.id || 'unknown' 
+                });
+            }
+        });
+    });
+}
+
+function initEngagementBuckets() {
+    [10, 30, 60, 120].forEach(sec => {
+        setTimeout(() => {
+            if (typeof gtag === 'function') {
+                gtag('event', 'engagement_time', { 
+                    seconds: sec, 
+                    page_title: document.title 
+                });
+            }
+        }, sec * 1000);
+    });
+}
+
+function initSectionTracking() {
+    if (!('IntersectionObserver' in window)) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                const sectionId = e.target.id || e.target.className.split(' ')[0];
+                if (sectionId && typeof gtag === 'function') {
+                    gtag('event', 'section_viewed', { section_id: sectionId });
+                }
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
+}
+
+// ===== Exit Intent Popup =====
+function initExitPopup() {
+    const popup = document.getElementById('exitPopup');
+    if (!popup) return;
+    
+    // Check if already shown
+    if (sessionStorage.getItem('exitPopupShown') || localStorage.getItem('exitPopupDismissed')) {
+        return;
+    }
+    
+    const showPopup = () => {
+        if (popup.classList.contains('hidden')) {
+            popup.classList.remove('hidden');
+            sessionStorage.setItem('exitPopupShown', 'true');
+            if (typeof gtag === 'function') {
+                gtag('event', 'exit_popup_shown', { page_title: document.title });
+            }
+        }
+    };
+    
+    // Desktop: Mouse Leave
+    document.addEventListener('mouseleave', (e) => {
+        if (e.clientY <= 0) {
+            showPopup();
+        }
+    });
+    
+    // Mobile/Fallback: Scroll 50% + 30s
+    let scrollTriggered = false;
+    window.addEventListener('scroll', () => {
+        if (scrollTriggered) return;
+        const scrollPercent = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+        if (scrollPercent > 50) {
+            scrollTriggered = true;
+            setTimeout(showPopup, 30000); // 30s delay after 50% scroll
+        }
+    });
+
+    // Close Function
+    window.closeExitPopup = function() {
+        popup.classList.add('hidden');
+        // Set cooldown in localStorage (7 days)
+        const expiry = new Date().getTime() + (7 * 24 * 60 * 60 * 1000);
+        localStorage.setItem('exitPopupDismissed', expiry);
+    };
+    
+    // Check for cooldown expiry on init
+    const dismissed = localStorage.getItem('exitPopupDismissed');
+    if (dismissed && new Date().getTime() > parseInt(dismissed)) {
+        localStorage.removeItem('exitPopupDismissed');
+    }
 }

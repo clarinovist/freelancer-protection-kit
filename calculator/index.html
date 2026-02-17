@@ -214,6 +214,30 @@
         </div>
     </div>
 
+    <!-- Exit Intent Popup (Upsell) -->
+    <div id="exitPopup" class="modal hidden">
+        <div class="modal-content" style="text-align: center; max-width: 450px;">
+            <span class="close-modal"
+                onclick="document.getElementById('exitPopup').classList.add('hidden')">&times;</span>
+            <div style="margin-bottom: 20px;">
+                <span class="material-symbols-outlined" style="font-size: 48px; color: var(--primary);">shield</span>
+            </div>
+            <h3 style="margin-bottom: 10px;">Jangan Cuma Dihitung, Lindungi Angkanya!</h3>
+            <p style="color: #666; margin-bottom: 20px;">Tarif profesional butuh kontrak profesional. Amankan proyekmu
+                dengan Freelancer Kit.</p>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <a href="../checkout.html" class="btn-primary"
+                    style="width: 100%; justify-content: center; text-decoration: none;">
+                    Dapatkan Freelancer Kit (Rp 99rb)
+                </a>
+                <button onclick="document.getElementById('exitPopup').classList.add('hidden')"
+                    style="background: none; border: none; color: #888; cursor: pointer; margin-top: 10px;">
+                    Nanti saja, saya suka ambil risiko
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 

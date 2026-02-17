@@ -197,3 +197,38 @@ ${document.getElementById('userName').textContent}`;
     // Initial run
     calculate();
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Exit Intent Logic for Calculator
+    const popup = document.getElementById('exitPopup');
+    if (!popup) return;
+
+    // Check if already shown
+    if (sessionStorage.getItem('calcExitPopupShown')) return;
+
+    const showPopup = () => {
+        if (popup.classList.contains('hidden')) {
+            popup.classList.remove('hidden');
+            sessionStorage.setItem('calcExitPopupShown', 'true');
+            if (typeof gtag === 'function') {
+                gtag('event', 'calc_exit_popup_shown', { page_title: document.title });
+            }
+        }
+    };
+
+    // Desktop
+    document.addEventListener('mouseleave', (e) => {
+        if (e.clientY <= 0) showPopup();
+    });
+
+    // Mobile (Scroll + Timer)
+    let scrollTriggered = false;
+    window.addEventListener('scroll', () => {
+        if (scrollTriggered) return;
+        const scrollPercent = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+        if (scrollPercent > 50) {
+            scrollTriggered = true;
+            setTimeout(showPopup, 20000); // 20s delay
+        }
+    });
+});
