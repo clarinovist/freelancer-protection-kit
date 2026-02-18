@@ -337,12 +337,6 @@ input[type="range"] {
     background: rgba(0, 157, 255, 0.1);
 }
 
-margin-top: 1rem;
-}
-
-.btn-secondary:hover {
-    background: rgba(0, 157, 255, 0.1);
-}
 
 /* NEW BUTTONS */
 .btn-primary-green {
