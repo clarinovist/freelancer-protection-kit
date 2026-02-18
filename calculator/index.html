@@ -34,7 +34,7 @@
             'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '629621639174393');
         fbq('track', 'PageView');
-        fbq('track', 'ViewContent', { content_name: 'Calculator Tool' });
+        // fbq('track', 'ViewContent'); // Disabled: Moved to Smart Logic (10s or 50% scroll)
     </script>
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=629621639174393&ev=PageView&noscript=1" /></noscript>
@@ -238,6 +238,14 @@
     </div>
 
     <script src="app.js"></script>
+    <script>
+        // Smart ViewContent for Calculator (Simple Version: Time based 5s)
+        setTimeout(function () {
+            if (typeof fbq === 'function') {
+                fbq('track', 'ViewContent', { content_name: 'Calculator Tool (Engaged)' });
+            }
+        }, 5000);
+    </script>
 </body>
 
 </html>

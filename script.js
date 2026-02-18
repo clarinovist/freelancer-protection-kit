@@ -324,6 +324,7 @@ document.addEventListener('DOMContentLoaded', function () {
     try { initScrollAnimations(); } catch (e) { }
     try { initButtonEffects(); } catch (e) { }
     try { initStickyHeader(); } catch (e) { }
+    try { initSmartViewContent(); } catch (e) { }
 
     // Wrap dynamic checkout in try-catch to prevent blocking
     try {
@@ -474,19 +475,19 @@ function formatPhone(phone) {
 function initScrollTracking() {
     const thresholds = [25, 50, 75, 100];
     const triggered = new Set();
-    
+
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPercent = Math.round((scrollTop / docHeight) * 100);
-        
+
         thresholds.forEach(t => {
             if (scrollPercent >= t && !triggered.has(t)) {
                 triggered.add(t);
                 if (typeof gtag === 'function') {
-                    gtag('event', 'scroll_depth', { 
-                        depth_percentage: t, 
-                        page_title: document.title 
+                    gtag('event', 'scroll_depth', {
+                        depth_percentage: t,
+                        page_title: document.title
                     });
                 }
             }
@@ -498,9 +499,9 @@ function initCTATracking() {
     document.querySelectorAll('a[href*="checkout.html"]').forEach(btn => {
         btn.addEventListener('click', () => {
             if (typeof gtag === 'function') {
-                gtag('event', 'cta_clicked', { 
-                    button_text: btn.innerText.trim(), 
-                    location: btn.closest('section')?.id || 'unknown' 
+                gtag('event', 'cta_clicked', {
+                    button_text: btn.innerText.trim(),
+                    location: btn.closest('section')?.id || 'unknown'
                 });
             }
         });
@@ -511,9 +512,9 @@ function initEngagementBuckets() {
     [10, 30, 60, 120].forEach(sec => {
         setTimeout(() => {
             if (typeof gtag === 'function') {
-                gtag('event', 'engagement_time', { 
-                    seconds: sec, 
-                    page_title: document.title 
+                gtag('event', 'engagement_time', {
+                    seconds: sec,
+                    page_title: document.title
                 });
             }
         }, sec * 1000);
@@ -522,7 +523,7 @@ function initEngagementBuckets() {
 
 function initSectionTracking() {
     if (!('IntersectionObserver' in window)) return;
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(e => {
             if (e.isIntersecting) {
@@ -534,20 +535,47 @@ function initSectionTracking() {
             }
         });
     }, { threshold: 0.5 });
-    
+
     document.querySelectorAll('section').forEach(s => observer.observe(s));
+}
+
+// ===== Smart ViewContent Pixel =====
+// Only fire ViewContent if user is actually interested (Time > 10s OR Scroll > 50%)
+function initSmartViewContent() {
+    let fired = false;
+
+    const firePixel = () => {
+        if (fired) return;
+        fired = true;
+        if (typeof fbq === 'function') {
+            fbq('track', 'ViewContent', { content_name: 'Smart View Content (Engaged User)' });
+            console.log('Pixel: Smart ViewContent fired');
+        }
+    };
+
+    // 1. Time Trigger (10 seconds)
+    setTimeout(firePixel, 10000);
+
+    // 2. Scroll Trigger (50%)
+    window.addEventListener('scroll', () => {
+        if (fired) return;
+        const scrollPercent = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+        if (scrollPercent > 50) {
+            firePixel();
+        }
+    });
 }
 
 // ===== Exit Intent Popup =====
 function initExitPopup() {
     const popup = document.getElementById('exitPopup');
     if (!popup) return;
-    
+
     // Check if already shown
     if (sessionStorage.getItem('exitPopupShown') || localStorage.getItem('exitPopupDismissed')) {
         return;
     }
-    
+
     const showPopup = () => {
         if (popup.classList.contains('hidden')) {
             popup.classList.remove('hidden');
@@ -557,14 +585,14 @@ function initExitPopup() {
             }
         }
     };
-    
+
     // Desktop: Mouse Leave
     document.addEventListener('mouseleave', (e) => {
         if (e.clientY <= 0) {
             showPopup();
         }
     });
-    
+
     // Mobile/Fallback: Scroll 50% + 30s
     let scrollTriggered = false;
     window.addEventListener('scroll', () => {
@@ -577,13 +605,13 @@ function initExitPopup() {
     });
 
     // Close Function
-    window.closeExitPopup = function() {
+    window.closeExitPopup = function () {
         popup.classList.add('hidden');
         // Set cooldown in localStorage (7 days)
         const expiry = new Date().getTime() + (7 * 24 * 60 * 60 * 1000);
         localStorage.setItem('exitPopupDismissed', expiry);
     };
-    
+
     // Check for cooldown expiry on init
     const dismissed = localStorage.getItem('exitPopupDismissed');
     if (dismissed && new Date().getTime() > parseInt(dismissed)) {
