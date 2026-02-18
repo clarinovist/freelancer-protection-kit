@@ -337,7 +337,66 @@ input[type="range"] {
     background: rgba(0, 157, 255, 0.1);
 }
 
-/* Health Dashboard */
+margin-top: 1rem;
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 157, 255, 0.1);
+}
+
+/* NEW BUTTONS */
+.btn-primary-green {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #25D366;
+    /* WhatsApp Green */
+    color: white;
+    font-weight: 700;
+    font-size: 1.125rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.btn-primary-green:hover {
+    background-color: #1ebc57;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.5);
+}
+
+.btn-secondary-blue {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 2px solid var(--primary);
+    cursor: pointer;
+    width: 100%;
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 1rem;
+}
+
+.btn-secondary-blue:hover {
+    background-color: rgba(0, 157, 255, 0.1);
+    transform: translateY(-1px);
+}
+
 .health-dashboard {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 0.5rem;
