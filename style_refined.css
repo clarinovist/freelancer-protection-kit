@@ -399,10 +399,56 @@ section {
     gap: 8px;
 }
 
-.btn-primary:hover {
-    background-color: var(--color-primary-dark);
     transform: translateY(-2px);
     box-shadow: 0 15px 30px -5px rgba(0, 153, 255, 0.5);
+}
+
+.btn-primary-green {
+    background-color: var(--color-accent); /* WhatsApp Green #25D366 */
+    color: white;
+    font-weight: 700;
+    font-size: 1.125rem;
+    padding: 18px 48px;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.4);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-primary-green:hover {
+    background-color: #1ebc57;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px -5px rgba(37, 211, 102, 0.5);
+}
+
+.btn-secondary-blue {
+    background-color: transparent;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 48px;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 2px solid var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-secondary-blue:hover {
+    background-color: var(--color-primary-light);
+    transform: translateY(-1px);
 }
 
 .trust-badge {
