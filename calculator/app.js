@@ -161,7 +161,13 @@ ${document.getElementById('userName').textContent}`;
             modal.classList.remove('hidden');
             updateQuoteText();
             // Tracking
-            if (typeof fbq === 'function') fbq('trackCustom', 'GenerateQuote');
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead', {
+                    content_name: 'Freelance Rate Calculated',
+                    currency: 'IDR',
+                    value: 0
+                });
+            }
             if (typeof gtag === 'function') gtag('event', 'generate_quote', { 'event_category': 'calculator' });
         });
     }
